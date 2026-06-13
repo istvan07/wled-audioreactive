@@ -3,65 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fenntartható Fogyási Terv · 105 → 75 kg</title>
+<title>Fenntartható Fogyási Terv · naplózással</title>
 <style>
   :root{
-    --bg:#0a0e1a;
-    --bg2:#111726;
-    --card:rgba(255,255,255,0.04);
-    --card-border:rgba(255,255,255,0.08);
-    --accent:#34e0a1;
-    --accent2:#4f9dff;
-    --accent3:#ff6b6b;
-    --gold:#ffd166;
-    --text:#e8edf5;
-    --muted:#8b97ab;
-    --shadow:0 20px 60px rgba(0,0,0,0.45);
-    --radius:20px;
+    --bg:#0a0e1a;--bg2:#111726;
+    --card:rgba(255,255,255,0.04);--card-border:rgba(255,255,255,0.08);
+    --accent:#34e0a1;--accent2:#4f9dff;--accent3:#ff6b6b;--gold:#ffd166;
+    --text:#e8edf5;--muted:#8b97ab;
+    --shadow:0 20px 60px rgba(0,0,0,0.45);--radius:20px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{
-    font-family:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;
-    background:radial-gradient(circle at 20% -10%,#16203a 0%,var(--bg) 45%) fixed;
-    color:var(--text);
-    line-height:1.6;
-    overflow-x:hidden;
-  }
+  body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;background:radial-gradient(circle at 20% -10%,#16203a 0%,var(--bg) 45%) fixed;color:var(--text);line-height:1.6;overflow-x:hidden}
 
-  /* Animated gradient blobs */
   .blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.35;z-index:0;animation:float 18s ease-in-out infinite}
   .blob.b1{width:420px;height:420px;background:var(--accent);top:-120px;right:-120px}
   .blob.b2{width:380px;height:380px;background:var(--accent2);bottom:-140px;left:-120px;animation-delay:-6s}
   .blob.b3{width:300px;height:300px;background:#7b5cff;top:40%;left:60%;animation-delay:-11s;opacity:.22}
   @keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.1)}66%{transform:translate(-30px,20px) scale(.95)}}
 
-  .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:48px 22px 80px}
+  .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:40px 22px 80px}
 
-  /* Hero */
-  header{text-align:center;padding:30px 0 18px;animation:fadeUp .9s ease both}
-  .badge{display:inline-block;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);border:1px solid var(--card-border);background:var(--card);padding:7px 16px;border-radius:999px;margin-bottom:20px}
+  /* Profile switcher */
+  .switcher{display:flex;gap:10px;justify-content:center;background:var(--card);border:1px solid var(--card-border);border-radius:999px;padding:6px;width:fit-content;margin:0 auto 8px;backdrop-filter:blur(8px)}
+  .switcher button{font:inherit;font-weight:700;color:var(--muted);background:transparent;border:none;padding:10px 22px;border-radius:999px;cursor:pointer;transition:.3s;white-space:nowrap}
+  .switcher button.active{color:#04130d;background:linear-gradient(120deg,var(--accent),var(--accent2));box-shadow:0 6px 18px rgba(52,224,161,.3)}
+
+  header{text-align:center;padding:18px 0 10px;animation:fadeUp .9s ease both}
+  .badge{display:inline-block;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);border:1px solid var(--card-border);background:var(--card);padding:7px 16px;border-radius:999px;margin-bottom:18px}
   h1{font-size:clamp(2rem,5vw,3.3rem);line-height:1.12;font-weight:800;letter-spacing:-.02em}
   h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent2) 60%,#7b5cff);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .sub{color:var(--muted);max-width:620px;margin:16px auto 0;font-size:1.05rem}
+  .sub{color:var(--muted);max-width:640px;margin:16px auto 0;font-size:1.05rem}
 
-  /* Progress hero */
-  .hero-stats{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:34px}
-  .stat{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:18px 22px;min-width:128px;backdrop-filter:blur(8px);animation:fadeUp .9s ease both}
+  .hero-stats{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:30px}
+  .stat{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:18px 22px;min-width:128px;backdrop-filter:blur(8px)}
   .stat .num{font-size:1.9rem;font-weight:800;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
   .stat .lbl{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 
-  /* Big progress bar */
-  .journey{margin:46px 0;background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;backdrop-filter:blur(10px);animation:fadeUp 1s ease both}
-  .journey h3{font-size:1.05rem;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+  .journey{margin:40px 0;background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;backdrop-filter:blur(10px)}
+  .journey h3{font-size:1.05rem;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
   .journey .pct{color:var(--accent);font-weight:800}
   .track{height:22px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden;position:relative;margin:14px 0 6px}
-  .fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));position:relative;transition:width 2s cubic-bezier(.16,1,.3,1);box-shadow:0 0 18px rgba(52,224,161,.5)}
+  .fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));position:relative;transition:width 1.6s cubic-bezier(.16,1,.3,1);box-shadow:0 0 18px rgba(52,224,161,.5)}
   .fill::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:shine 2.4s linear infinite}
   @keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
   .track-labels{display:flex;justify-content:space-between;color:var(--muted);font-size:.85rem}
 
-  section{margin-top:54px;animation:fadeUp 1s ease both}
+  section{margin-top:50px}
   .sec-title{font-size:1.5rem;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:12px}
   .sec-title .dot{width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
   .sec-note{color:var(--muted);margin-bottom:22px}
@@ -75,11 +63,7 @@
   .card .ico{font-size:1.7rem;margin-bottom:10px;display:block}
   .card h4{font-size:1.1rem;margin-bottom:8px}
   .card p,.card li{color:var(--muted);font-size:.95rem}
-  .card ul{list-style:none;margin-top:8px}
-  .card ul li{padding:5px 0 5px 24px;position:relative}
-  .card ul li::before{content:"";position:absolute;left:0;top:13px;width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
 
-  /* Daily timeline */
   .timeline{position:relative;padding-left:30px}
   .timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--accent),var(--accent2),transparent)}
   .tl-item{position:relative;padding:0 0 26px 26px}
@@ -90,7 +74,6 @@
   .tl-desc{color:var(--muted);font-size:.93rem}
   .kcal{display:inline-block;font-size:.78rem;color:var(--gold);border:1px solid rgba(255,209,102,.3);background:rgba(255,209,102,.08);border-radius:999px;padding:2px 10px;margin-left:6px}
 
-  /* Week tabs */
   .days{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px}
   .day{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:18px;transition:transform .3s,border-color .3s}
   .day:hover{transform:translateY(-5px) scale(1.02);border-color:rgba(79,157,255,.45)}
@@ -102,25 +85,20 @@
   .pill.rest{background:rgba(139,151,171,.14);color:var(--muted)}
   .pill.strong{background:rgba(255,107,107,.14);color:var(--accent3)}
 
-  /* Plate */
   .plate-wrap{display:flex;gap:26px;flex-wrap:wrap;align-items:center;justify-content:center}
-  .plate{width:230px;height:230px;border-radius:50%;position:relative;flex:0 0 auto;
-    background:conic-gradient(var(--accent) 0 50%,var(--accent2) 50% 75%,var(--gold) 75% 100%);
-    box-shadow:0 0 0 10px rgba(255,255,255,.04),var(--shadow);animation:spinIn 1.4s cubic-bezier(.16,1,.3,1) both}
+  .plate{width:230px;height:230px;border-radius:50%;position:relative;flex:0 0 auto;background:conic-gradient(var(--accent) 0 50%,var(--accent2) 50% 75%,var(--gold) 75% 100%);box-shadow:0 0 0 10px rgba(255,255,255,.04),var(--shadow)}
   .plate::after{content:"";position:absolute;inset:32%;background:var(--bg);border-radius:50%;box-shadow:inset 0 0 30px rgba(0,0,0,.6)}
   .plate .center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:2}
   .plate .center b{font-size:1.4rem}
   .plate .center span{font-size:.78rem;color:var(--muted)}
-  @keyframes spinIn{from{transform:rotate(-120deg) scale(.6);opacity:0}to{transform:rotate(0) scale(1);opacity:1}}
   .legend{display:flex;flex-direction:column;gap:12px}
   .legend div{display:flex;align-items:center;gap:10px;font-size:.95rem}
   .legend i{width:16px;height:16px;border-radius:5px;display:inline-block}
 
-  /* Habit checklist (interactive) */
   .habits{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
   .habit{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--card-border);border-radius:14px;padding:14px 16px;cursor:pointer;user-select:none;transition:.25s}
   .habit:hover{border-color:rgba(52,224,161,.4)}
-  .habit .box{width:24px;height:24px;border-radius:7px;border:2px solid var(--muted);flex:0 0 auto;display:flex;align-items:center;justify-content:center;transition:.25s;font-size:.9rem}
+  .habit .box{width:24px;height:24px;border-radius:7px;border:2px solid var(--muted);flex:0 0 auto;display:flex;align-items:center;justify-content:center;transition:.25s;font-size:.9rem;color:transparent}
   .habit.done{background:rgba(52,224,161,.1);border-color:var(--accent)}
   .habit.done .box{background:var(--accent);border-color:var(--accent);color:#04130d}
   .habit.done .htxt{text-decoration:line-through;color:var(--muted)}
@@ -129,16 +107,47 @@
   .callout{background:linear-gradient(120deg,rgba(52,224,161,.1),rgba(79,157,255,.08));border:1px solid rgba(52,224,161,.25);border-radius:var(--radius);padding:22px 24px;margin-top:24px}
   .callout b{color:var(--accent)}
 
-  .disclaimer{margin-top:50px;font-size:.85rem;color:var(--muted);border-top:1px solid var(--card-border);padding-top:22px;text-align:center}
+  /* ---- Naplózás ---- */
+  .log-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:26px;backdrop-filter:blur(10px)}
+  .form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;align-items:end}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field label{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .field input,.field select{font:inherit;background:var(--bg2);border:1px solid var(--card-border);border-radius:12px;padding:11px 13px;color:var(--text);transition:.25s}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(52,224,161,.15)}
+  .btn{font:inherit;font-weight:700;cursor:pointer;border:none;border-radius:12px;padding:12px 20px;transition:.25s;white-space:nowrap}
+  .btn-primary{background:linear-gradient(120deg,var(--accent),var(--accent2));color:#04130d}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(52,224,161,.3)}
+  .btn-ghost{background:var(--bg2);color:var(--text);border:1px solid var(--card-border)}
+  .btn-ghost:hover{border-color:var(--accent)}
+  .btn-danger{background:rgba(255,107,107,.12);color:var(--accent3);border:1px solid rgba(255,107,107,.3)}
+  .btn-danger:hover{background:rgba(255,107,107,.2)}
 
+  .log-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+  .log-summary{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0 6px}
+  .mini{flex:1;min-width:120px;background:var(--bg2);border:1px solid var(--card-border);border-radius:14px;padding:14px 16px}
+  .mini .v{font-size:1.4rem;font-weight:800;color:var(--accent)}
+  .mini .k{font-size:.78rem;color:var(--muted)}
+
+  .chart-box{margin:22px 0;background:var(--bg2);border:1px solid var(--card-border);border-radius:16px;padding:18px}
+  .chart-box svg{width:100%;height:auto;display:block}
+  .empty{color:var(--muted);text-align:center;padding:26px;font-size:.95rem}
+
+  table.log{width:100%;border-collapse:collapse;margin-top:8px;font-size:.92rem}
+  table.log th,table.log td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--card-border)}
+  table.log th{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+  table.log tr{transition:.2s}
+  table.log tbody tr:hover{background:rgba(255,255,255,.03)}
+  .del{cursor:pointer;color:var(--accent3);background:none;border:none;font-size:1.05rem;padding:4px 8px;border-radius:8px;transition:.2s}
+  .del:hover{background:rgba(255,107,107,.15)}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--accent);color:#04130d;font-weight:700;padding:13px 24px;border-radius:14px;box-shadow:var(--shadow);z-index:50;opacity:0;transition:.4s}
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+  .disclaimer{margin-top:50px;font-size:.85rem;color:var(--muted);border-top:1px solid var(--card-border);padding-top:22px;text-align:center}
   @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
   .reveal{opacity:0;transform:translateY(28px)}
   .reveal.in{animation:fadeUp .8s cubic-bezier(.16,1,.3,1) both}
-
-  /* count-up gets staggered delays */
-  .stat:nth-child(1){animation-delay:.05s}.stat:nth-child(2){animation-delay:.15s}
-  .stat:nth-child(3){animation-delay:.25s}.stat:nth-child(4){animation-delay:.35s}
-
+  #profileArea{animation:fadeUp .6s ease both}
   footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:30px}
 </style>
 </head>
@@ -146,24 +155,30 @@
   <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
 
   <div class="wrap">
+    <div class="switcher" id="switcher">
+      <button data-p="ferfi" class="active">👨 Férfi · 105→75</button>
+      <button data-p="no">👩 Nő · 105→60</button>
+    </div>
+
+    <div id="profileArea">
     <header>
       <span class="badge">★ Személyre szabott terv</span>
-      <h1>Fenntartható út a <span class="grad">75 kg-ig</span></h1>
-      <p class="sub">176 cm · 30 éves férfi · indulás 105 kg-ról. Nem diéta — egy nyugodt, tartható életmód, ami havonta 2,5–3 kg-ot ad le, anélkül hogy kiéheznél vagy feladnád.</p>
+      <h1>Fenntartható út a <span class="grad" id="goalTitle">75 kg-ig</span></h1>
+      <p class="sub" id="subText"></p>
 
       <div class="hero-stats">
-        <div class="stat"><div class="num" data-count="30">0</div><div class="lbl">leadandó kg</div></div>
-        <div class="stat"><div class="num" data-count="9" data-suffix="–10">0</div><div class="lbl">hónap</div></div>
-        <div class="stat"><div class="num" data-count="2200" data-suffix=" kcal">0</div><div class="lbl">napi cél</div></div>
-        <div class="stat"><div class="num" data-count="0" data-decimal="7" data-prefix="~0,">0</div><div class="lbl">kg / hét</div></div>
+        <div class="stat"><div class="num" id="stKg">0</div><div class="lbl">leadandó kg</div></div>
+        <div class="stat"><div class="num" id="stMonths">0</div><div class="lbl">hónap</div></div>
+        <div class="stat"><div class="num" id="stKcal">0</div><div class="lbl">napi cél</div></div>
+        <div class="stat"><div class="num" id="stWeek">0</div><div class="lbl">kg / hét</div></div>
       </div>
     </header>
 
     <div class="journey">
-      <h3><span>Súlycél haladás</span><span class="pct">105 → <span style="color:var(--accent2)">75 kg</span></span></h3>
+      <h3><span>Súlycél haladás</span><span class="pct"><span id="jStart">105</span> → <span style="color:var(--accent2)" id="jTarget">75 kg</span></span></h3>
       <div class="track"><div class="fill" id="fill"></div></div>
-      <div class="track-labels"><span>Start · 105 kg</span><span>Cél · 75 kg (BMI 24,2)</span></div>
-      <p style="color:var(--muted);font-size:.9rem;margin-top:12px">A mostani BMI <b style="color:var(--accent3)">33,9</b> (I. fokú elhízás) → a cél a <b style="color:var(--accent)">24,2</b>-es, egészséges normál tartomány.</p>
+      <div class="track-labels"><span id="jStartLbl">Start · 105 kg</span><span id="jTargetLbl">Cél · 75 kg</span></div>
+      <p style="color:var(--muted);font-size:.9rem;margin-top:12px" id="bmiLine"></p>
     </div>
 
     <!-- ALAPELVEK -->
@@ -171,26 +186,26 @@
       <div class="sec-title"><span class="dot"></span>A 4 alapelv</div>
       <p class="sec-note">Ezeken áll vagy bukik minden. Nem a tökéletesség, hanem a következetesség számít.</p>
       <div class="grid g2">
-        <div class="card"><span class="ico">🔥</span><h4>Mérsékelt kalóriadeficit</h4><p>A fenntartásod kb. 2800–3100 kcal. A cél napi <b style="color:var(--text)">~2200 kcal</b> — kb. 600–700 kcal mínusz. Elég a fogyáshoz, de nem éhezel.</p></div>
-        <div class="card"><span class="ico">🥩</span><h4>Sok fehérje</h4><p>Napi <b style="color:var(--text)">160–180 g</b> fehérje (kb. 1,6 g/ttkg). Megtart jóllakottnak és véd az izomvesztéstől fogyás közben.</p></div>
-        <div class="card"><span class="ico">🚶</span><h4>Napi mozgás</h4><p>Cél: <b style="color:var(--text)">8 000–10 000 lépés</b> minden nap + heti 3 erősítő edzés. A lépésszám a legalábecsült fogyás-motor.</p></div>
-        <div class="card"><span class="ico">😴</span><h4>Alvás &amp; folyadék</h4><p><b style="color:var(--text)">7–8 óra alvás</b> és <b style="color:var(--text)">2,5–3 l víz</b> naponta. Kevés alvás = több éhségérzet és lassabb fogyás.</p></div>
+        <div class="card"><span class="ico">🔥</span><h4>Mérsékelt kalóriadeficit</h4><p>A fenntartásod kb. <b style="color:var(--text)" id="pTdee">2800–3100</b> kcal. A cél napi <b style="color:var(--text)" id="pKcal">~2200 kcal</b> — elég a fogyáshoz, de nem éhezel.</p></div>
+        <div class="card"><span class="ico">🥩</span><h4>Sok fehérje</h4><p>Napi <b style="color:var(--text)" id="pProt">160–180 g</b> fehérje. Megtart jóllakottnak és véd az izomvesztéstől fogyás közben.</p></div>
+        <div class="card"><span class="ico">🚶</span><h4>Napi mozgás</h4><p>Cél: <b style="color:var(--text)">8 000–10 000 lépés</b> minden nap + heti 3 erősítő edzés. A legalábecsült fogyás-motor.</p></div>
+        <div class="card"><span class="ico">😴</span><h4>Alvás &amp; folyadék</h4><p><b style="color:var(--text)">7–8 óra alvás</b> és <b style="color:var(--text)" id="pWater">2,5–3 l víz</b> naponta. Kevés alvás = több éhségérzet.</p></div>
       </div>
     </section>
 
     <!-- NAPI TERV -->
     <section class="reveal">
       <div class="sec-title"><span class="dot"></span>Egy átlagos nap</div>
-      <p class="sec-note">Minta-napirend kb. 2200 kcal-ra és 170 g fehérjére bontva. Az időpontok rugalmasak — igazítsd a saját ritmusodhoz.</p>
+      <p class="sec-note" id="dayNote"></p>
       <div class="card">
         <div class="timeline">
           <div class="tl-item"><div class="tl-time">07:00 · Ébredés</div><div class="tl-title">Indító rutin</div><div class="tl-desc">2 pohár víz, esetleg fekete kávé. 10 perc nyújtás vagy séta a tudatos kezdéshez.</div></div>
-          <div class="tl-item"><div class="tl-time">07:30 · Reggeli<span class="kcal">~500 kcal</span></div><div class="tl-title">Fehérjés indítás</div><div class="tl-desc">Pl. 4 tojásos rántotta zöldséggel + 1 szelet teljes kiőrlésű kenyér, vagy zabkása túróval és bogyós gyümölccsel.</div></div>
-          <div class="tl-item"><div class="tl-time">10:30 · Tízórai<span class="kcal">~200 kcal</span></div><div class="tl-title">Könnyű snack</div><div class="tl-desc">Görög joghurt vagy egy marék mandula + alma. Ne hagyd, hogy ebédig farkaséhes legyél.</div></div>
-          <div class="tl-item"><div class="tl-time">13:00 · Ebéd<span class="kcal">~650 kcal</span></div><div class="tl-title">A „tányérmódszer”</div><div class="tl-desc">Fél tányér zöldség, negyed sovány fehérje (csirke/hal/marha), negyed komplex szénhidrát (rizs/burgonya/quinoa).</div></div>
-          <div class="tl-item"><div class="tl-time">16:30 · Edzés / séta</div><div class="tl-title">Mozgás</div><div class="tl-desc">Erősítő edzés (hét 3 napján) vagy 30–45 perc gyors séta. Edzés után fehérjeturmix is jöhet.</div></div>
-          <div class="tl-item"><div class="tl-time">19:00 · Vacsora<span class="kcal">~600 kcal</span></div><div class="tl-title">Könnyű, fehérjedús</div><div class="tl-desc">Sült hal vagy csirke nagy salátával, vagy zöldséges túró/cottage cheese tál. Kerüld a nehéz, késő esti étkezést.</div></div>
-          <div class="tl-item"><div class="tl-time">22:30 · Lefekvés</div><div class="tl-title">Pihenés</div><div class="tl-desc">Képernyő le 30 perccel előtte, sötét, hűvös szoba. A 7–8 óra alvás a terv láthatatlan alappillére.</div></div>
+          <div class="tl-item"><div class="tl-time">07:30 · Reggeli<span class="kcal" id="mReggeli"></span></div><div class="tl-title">Fehérjés indítás</div><div class="tl-desc">Pl. tojásos rántotta zöldséggel + teljes kiőrlésű kenyér, vagy zabkása túróval és bogyós gyümölccsel.</div></div>
+          <div class="tl-item"><div class="tl-time">10:30 · Tízórai<span class="kcal" id="mTizorai"></span></div><div class="tl-title">Könnyű snack</div><div class="tl-desc">Görög joghurt vagy egy marék mandula + alma. Ne hagyd, hogy ebédig farkaséhes legyél.</div></div>
+          <div class="tl-item"><div class="tl-time">13:00 · Ebéd<span class="kcal" id="mEbed"></span></div><div class="tl-title">A „tányérmódszer”</div><div class="tl-desc">Fél tányér zöldség, negyed sovány fehérje (csirke/hal/marha), negyed komplex szénhidrát.</div></div>
+          <div class="tl-item"><div class="tl-time">16:30 · Edzés / séta</div><div class="tl-title">Mozgás</div><div class="tl-desc">Erősítő edzés (hét 3 napján) vagy 30–45 perc gyors séta.</div></div>
+          <div class="tl-item"><div class="tl-time">19:00 · Vacsora<span class="kcal" id="mVacsora"></span></div><div class="tl-title">Könnyű, fehérjedús</div><div class="tl-desc">Sült hal vagy csirke nagy salátával, vagy zöldséges túró/cottage cheese tál.</div></div>
+          <div class="tl-item"><div class="tl-time">22:30 · Lefekvés</div><div class="tl-title">Pihenés</div><div class="tl-desc">Képernyő le 30 perccel előtte. A 7–8 óra alvás a terv láthatatlan alappillére.</div></div>
         </div>
       </div>
 
@@ -207,7 +222,7 @@
     <!-- HETI TERV -->
     <section class="reveal">
       <div class="sec-title"><span class="dot"></span>A heti ritmus</div>
-      <p class="sec-note">Heti 3 erősítő edzés, közöttük aktív pihenő és séta. Egy „lazább” nap is belefér — ettől lesz tartható.</p>
+      <p class="sec-note">Heti 3 erősítő edzés, közöttük aktív pihenő és séta. Egy „lazább" nap is belefér — ettől lesz tartható.</p>
       <div class="days">
         <div class="day"><div class="dname">Hétfő</div><div class="dfocus">💪 Erősítés — Felsőtest</div><div class="dmeta">Mell, hát, váll, kar</div><span class="pill strong">Edzés</span></div>
         <div class="day"><div class="dname">Kedd</div><div class="dfocus">🚶 Séta + core</div><div class="dmeta">8–10 e lépés, 10' has</div><span class="pill move">Aktív</span></div>
@@ -217,23 +232,60 @@
         <div class="day"><div class="dname">Szombat</div><div class="dfocus">🥾 Hosszú aktivitás</div><div class="dmeta">Túra, bringa, úszás 60'</div><span class="pill move">Aktív</span></div>
         <div class="day"><div class="dname">Vasárnap</div><div class="dfocus">🍽️ Rugalmas nap</div><div class="dmeta">Pihenés + heti meal-prep</div><span class="pill rest">Pihenő</span></div>
       </div>
+      <div class="callout" id="weekCallout"></div>
+    </section>
 
-      <div class="callout">
-        <b>Heti mérleg-szabály:</b> Mérd magad mindig ugyanúgy — heti 1×, reggel, vécé után, éhgyomorra. A napi ingadozás normális (víz, só); a <b>4 hetes átlag-trend</b> a fontos, nem az egyes számok. Cél: havi 2,5–3 kg lefelé.
+    <!-- NAPLÓZÁS -->
+    <section class="reveal">
+      <div class="sec-title"><span class="dot"></span>Napló &amp; haladáskövetés</div>
+      <p class="sec-note">Rögzítsd a súlyod, lépéseid és jegyzeteid. Minden a böngésződben tárolódik (nincs felhő), és bármikor exportálható. A profilok külön naplót vezetnek.</p>
+
+      <div class="log-card">
+        <div class="form-row">
+          <div class="field"><label>Dátum</label><input type="date" id="inDate"></div>
+          <div class="field"><label>Súly (kg)</label><input type="number" step="0.1" min="30" max="300" id="inWeight" placeholder="pl. 104,5"></div>
+          <div class="field"><label>Lépések</label><input type="number" step="100" min="0" id="inSteps" placeholder="pl. 8500"></div>
+          <div class="field"><label>Hangulat</label>
+            <select id="inMood">
+              <option value="">–</option>
+              <option value="💪">💪 Erős</option>
+              <option value="🙂">🙂 Jó</option>
+              <option value="😐">😐 Semleges</option>
+              <option value="😴">😴 Fáradt</option>
+              <option value="😣">😣 Nehéz nap</option>
+            </select>
+          </div>
+          <div class="field" style="flex:2;min-width:180px"><label>Jegyzet</label><input type="text" id="inNote" placeholder="pl. edzésnap, jól ment"></div>
+          <button class="btn btn-primary" id="saveBtn">＋ Mentés</button>
+        </div>
+
+        <div class="log-summary" id="summary"></div>
+
+        <div class="chart-box"><svg id="chart" viewBox="0 0 600 220" preserveAspectRatio="none"></svg></div>
+
+        <div id="logTableWrap"></div>
+
+        <div class="log-actions">
+          <button class="btn btn-ghost" id="exportJson">⬇️ Export JSON</button>
+          <button class="btn btn-ghost" id="exportCsv">⬇️ Export CSV</button>
+          <button class="btn btn-ghost" id="importBtn">⬆️ Import JSON</button>
+          <input type="file" id="importFile" accept="application/json" hidden>
+          <button class="btn btn-danger" id="clearBtn">🗑️ Napló törlése</button>
+        </div>
       </div>
     </section>
 
-    <!-- NAPI SZOKÁSOK CHECKLIST -->
+    <!-- NAPI SZOKÁSOK -->
     <section class="reveal">
       <div class="sec-title"><span class="dot"></span>Napi pipálható szokások</div>
-      <p class="sec-note">Kattints rájuk! Ha napi 6-ból 5 megvan, jó úton vagy. Frissítsd minden reggel.</p>
+      <p class="sec-note">Kattints rájuk! A mai állás automatikusan mentődik (profilonként és naponta).</p>
       <div class="habits" id="habits">
-        <div class="habit"><span class="box">✓</span><span class="htxt">💧 2,5–3 liter víz</span></div>
-        <div class="habit"><span class="box">✓</span><span class="htxt">🥩 ~170 g fehérje</span></div>
-        <div class="habit"><span class="box">✓</span><span class="htxt">🚶 8 000+ lépés</span></div>
-        <div class="habit"><span class="box">✓</span><span class="htxt">🥗 2 adag zöldség</span></div>
-        <div class="habit"><span class="box">✓</span><span class="htxt">😴 7–8 óra alvás</span></div>
-        <div class="habit"><span class="box">✓</span><span class="htxt">🚫 Nincs éjszakai nasi</span></div>
+        <div class="habit" data-h="0"><span class="box">✓</span><span class="htxt">💧 Elég víz</span></div>
+        <div class="habit" data-h="1"><span class="box">✓</span><span class="htxt">🥩 Fehérjecél</span></div>
+        <div class="habit" data-h="2"><span class="box">✓</span><span class="htxt">🚶 8 000+ lépés</span></div>
+        <div class="habit" data-h="3"><span class="box">✓</span><span class="htxt">🥗 2 adag zöldség</span></div>
+        <div class="habit" data-h="4"><span class="box">✓</span><span class="htxt">😴 7–8 óra alvás</span></div>
+        <div class="habit" data-h="5"><span class="box">✓</span><span class="htxt">🚫 Nincs éjszakai nasi</span></div>
       </div>
       <p id="habitScore" style="text-align:center;margin-top:18px;font-weight:700;color:var(--accent)">0 / 6 megvan ma</p>
     </section>
@@ -246,64 +298,297 @@
         <div class="card"><span class="ico">📵</span><h4>Tudatos evés</h4><p>Lassan egyél, képernyő nélkül. Az agynak 20 perc kell, hogy érzékelje a teltséget.</p></div>
         <div class="card"><span class="ico">🥤</span><h4>Folyékony kalóriák</h4><p>Üdítő, gyümölcslé, alkohol — itt bújik a rejtett kalória. Víz, tea, kávé cukor nélkül a barátaid.</p></div>
         <div class="card"><span class="ico">🎯</span><h4>80/20 szabály</h4><p>Az idő 80%-ában tartsd a tervet, 20% legyen rugalmas. Egy kiruccanás nem rontja el a hetet.</p></div>
-        <div class="card"><span class="ico">📉</span><h4>Plató kezelése</h4><p>3-4 hét stagnálás normális. Ne csökkentsd drasztikusan a kalóriát — inkább nézd a lépésszámot és az alvást.</p></div>
+        <div class="card"><span class="ico">📉</span><h4>Plató kezelése</h4><p>3-4 hét stagnálás normális. Ne csökkentsd drasztikusan a kalóriát — nézd a lépésszámot és az alvást.</p></div>
         <div class="card"><span class="ico">🏆</span><h4>Nem-mérleg győzelmek</h4><p>Bővebb energia, jobb alvás, lazább nadrág. Ezek jeleznek akkor is, ha a szám épp áll.</p></div>
       </div>
     </section>
 
-    <div class="callout" style="margin-top:46px">
-      <b>A lényeg 1 mondatban:</b> Egyél napi ~2200 kcal-t bőséges fehérjével, mozogj minden nap és aludj eleget — és a 75 kg nem cél lesz, hanem egy állomás, amit kényelmesen tartani is tudsz.
-    </div>
+    <div class="callout" style="margin-top:46px" id="finalCallout"></div>
 
     <p class="disclaimer">
-      ⚕️ Ez egy általános, tájékoztató életmódterv, nem helyettesíti az orvosi tanácsadást. 30 kg leadása előtt — különösen meglévő betegség, gyógyszerszedés esetén — érdemes háziorvossal vagy dietetikussal egyeztetni. Hallgass a tested jelzéseire.
+      ⚕️ Ez egy általános, tájékoztató életmódterv, nem helyettesíti az orvosi tanácsadást. Nagyobb fogyás előtt — különösen meglévő betegség, gyógyszerszedés vagy várandósság esetén — érdemes háziorvossal vagy dietetikussal egyeztetni. Hallgass a tested jelzéseire.
     </p>
-    <footer>Készült személyre szabottan · 105 → 75 kg · fenntartható tempóban 💚</footer>
+    <footer>Készült személyre szabottan · az adatok a böngésződben tárolódnak 💚</footer>
+    </div>
   </div>
 
+  <div class="toast" id="toast"></div>
+
 <script>
-  // Count-up animáció
-  function animateCount(el){
-    const target=parseFloat(el.dataset.count);
-    const suffix=el.dataset.suffix||"";
-    const prefix=el.dataset.prefix||"";
-    const decimal=el.dataset.decimal;
-    let cur=0;const dur=1400;const t0=performance.now();
+  "use strict";
+  /* ---------- Profil-adatok ---------- */
+  const PROFILES = {
+    ferfi:{
+      icon:"👨", who:"30 éves férfi", height:176, age:30, start:105, target:75,
+      tdee:"2800–3100", kcal:2200, prot:"160–180 g", protShort:"~170 g fehérje",
+      water:"2,5–3 l víz", perWeek:"0,7", months:"9–10",
+      meals:{reggeli:500,tizorai:200,ebed:650,vacsora:600},
+      monthly:"2,5–3 kg"
+    },
+    no:{
+      icon:"👩", who:"28 éves nő", height:158, age:28, start:105, target:60,
+      tdee:"2400–2600", kcal:1800, prot:"120–140 g", protShort:"~130 g fehérje",
+      water:"2–2,5 l víz", perWeek:"0,6", months:"15–17",
+      meals:{reggeli:400,tizorai:150,ebed:550,vacsora:450},
+      monthly:"2–2,5 kg"
+    }
+  };
+
+  const $=id=>document.getElementById(id);
+  const fmt=n=>n.toLocaleString('hu-HU');
+  const bmi=(w,h)=>(w/Math.pow(h/100,2));
+  const bmiCat=v=> v<18.5?"sovány": v<25?"normál": v<30?"túlsúly": v<35?"I. fokú elhízás": v<40?"II. fokú elhízás":"III. fokú elhízás";
+
+  let current = localStorage.getItem('wl_current') || 'ferfi';
+
+  /* ---------- Megjelenítés profil szerint ---------- */
+  function render(){
+    const p=PROFILES[current];
+    $('goalTitle').textContent=p.target+" kg-ig";
+    $('subText').innerHTML=`${p.height} cm · ${p.who} · indulás ${p.start} kg-ról. Nem diéta — egy nyugodt, tartható életmód a ${p.target} kg felé, kiéheztetés nélkül.`;
+
+    // hero stats with count-up
+    countUp($('stKg'), p.start-p.target, "", "");
+    $('stMonths').textContent=p.months;
+    countUp($('stKcal'), p.kcal, "", " kcal");
+    $('stWeek').textContent="~"+p.perWeek;
+
+    // journey
+    $('jStart').textContent=p.start;
+    $('jTarget').textContent=p.target+" kg";
+    $('jStartLbl').textContent=`Start · ${p.start} kg`;
+    const tBmi=bmi(p.target,p.height);
+    $('jTargetLbl').textContent=`Cél · ${p.target} kg (BMI ${tBmi.toFixed(1).replace('.',',')})`;
+    const cBmi=bmi(p.start,p.height);
+    $('bmiLine').innerHTML=`A kiindulási BMI <b style="color:var(--accent3)">${cBmi.toFixed(1).replace('.',',')}</b> (${bmiCat(cBmi)}) → a cél a <b style="color:var(--accent)">${tBmi.toFixed(1).replace('.',',')}</b>-es, egészséges normál tartomány.`;
+
+    // principles
+    $('pTdee').textContent=p.tdee;
+    $('pKcal').textContent="~"+fmt(p.kcal)+" kcal";
+    $('pProt').textContent=p.prot;
+    $('pWater').textContent=p.water;
+
+    // meals
+    $('dayNote').textContent=`Minta-napirend kb. ${fmt(p.kcal)} kcal-ra és ${p.prot} fehérjére. Az időpontok rugalmasak — igazítsd a saját ritmusodhoz.`;
+    $('mReggeli').textContent="~"+p.meals.reggeli+" kcal";
+    $('mTizorai').textContent="~"+p.meals.tizorai+" kcal";
+    $('mEbed').textContent="~"+p.meals.ebed+" kcal";
+    $('mVacsora').textContent="~"+p.meals.vacsora+" kcal";
+
+    // habit protein label
+    document.querySelector('[data-h="1"] .htxt').textContent="🥩 "+p.protShort;
+
+    // callouts
+    $('weekCallout').innerHTML=`<b>Heti mérleg-szabály:</b> Mérd magad mindig ugyanúgy — heti 1×, reggel, vécé után, éhgyomorra. A napi ingadozás normális; a <b>4 hetes átlag-trend</b> a fontos. Reális cél: havi ${p.monthly} lefelé.`;
+    $('finalCallout').innerHTML=`<b>A lényeg 1 mondatban:</b> Egyél napi ~${fmt(p.kcal)} kcal-t bőséges fehérjével, mozogj minden nap és aludj eleget — és a ${p.target} kg nem cél lesz, hanem egy állomás, amit kényelmesen tartani is tudsz.`;
+
+    renderLog();
+    renderHabits();
+  }
+
+  /* ---------- Count-up ---------- */
+  function countUp(el,target,prefix,suffix){
+    const dur=1100, t0=performance.now();
     function step(now){
-      const p=Math.min((now-t0)/dur,1);
-      const eased=1-Math.pow(1-p,3);
-      if(decimal!==undefined){
-        el.textContent=prefix+Math.round(eased*parseInt(decimal))+suffix;
-      }else{
-        cur=Math.round(eased*target);
-        el.textContent=prefix+cur.toLocaleString('hu-HU')+suffix;
-      }
-      if(p<1)requestAnimationFrame(step);
+      const pr=Math.min((now-t0)/dur,1);
+      const e=1-Math.pow(1-pr,3);
+      el.textContent=prefix+fmt(Math.round(e*target))+suffix;
+      if(pr<1)requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
   }
 
-  window.addEventListener('load',()=>{
-    document.querySelectorAll('[data-count]').forEach(animateCount);
-    // progress bar: 0 kg leadva eddig -> mutassuk a "teljes utat" vizuálisan kis kezdettel
-    setTimeout(()=>{document.getElementById('fill').style.width='4%';},400);
-  });
+  /* ---------- Napló (localStorage) ---------- */
+  const logKey=()=>'wl_log_'+current;
+  const getLog=()=>{try{return JSON.parse(localStorage.getItem(logKey()))||[]}catch{return[]}};
+  const setLog=a=>localStorage.setItem(logKey(),JSON.stringify(a));
 
-  // Scroll reveal
-  const io=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
-  },{threshold:.12});
+  function saveEntry(){
+    const date=$('inDate').value;
+    const weight=parseFloat($('inWeight').value);
+    if(!date){toast('Adj meg dátumot!');return;}
+    if(!weight && !$('inSteps').value && !$('inNote').value && !$('inMood').value){toast('Tölts ki legalább egy mezőt!');return;}
+    const entry={
+      date,
+      weight: isNaN(weight)?null:weight,
+      steps: $('inSteps').value?parseInt($('inSteps').value):null,
+      mood: $('inMood').value||"",
+      note: $('inNote').value.trim()
+    };
+    const log=getLog().filter(e=>e.date!==date); // egy nap = egy bejegyzés (felülír)
+    log.push(entry);
+    setLog(log);
+    $('inWeight').value='';$('inSteps').value='';$('inNote').value='';$('inMood').value='';
+    toast('Mentve ✓');
+    renderLog();
+  }
+
+  function deleteEntry(date){
+    setLog(getLog().filter(e=>e.date!==date));
+    renderLog();
+    toast('Bejegyzés törölve');
+  }
+
+  function renderLog(){
+    const p=PROFILES[current];
+    const log=getLog().slice().sort((a,b)=>a.date.localeCompare(b.date));
+
+    // summary + progress
+    const weights=log.filter(e=>e.weight!=null);
+    const latest=weights.length?weights[weights.length-1].weight:p.start;
+    const lost=(p.start-latest);
+    const pctRaw=(p.start-latest)/(p.start-p.target)*100;
+    const pct=Math.max(0,Math.min(100,pctRaw));
+    $('fill').style.width=pct.toFixed(1)+'%';
+
+    const remaining=Math.max(0,latest-p.target);
+    $('summary').innerHTML=`
+      <div class="mini"><div class="v">${latest.toFixed(1).replace('.',',')} kg</div><div class="k">Legutóbbi súly</div></div>
+      <div class="mini"><div class="v">${lost>=0?'-':'+'}${Math.abs(lost).toFixed(1).replace('.',',')} kg</div><div class="k">Eddig leadva</div></div>
+      <div class="mini"><div class="v">${remaining.toFixed(1).replace('.',',')} kg</div><div class="k">Célig hátra</div></div>
+      <div class="mini"><div class="v">${pct.toFixed(0)}%</div><div class="k">Teljesítve</div></div>
+      <div class="mini"><div class="v">${log.length}</div><div class="k">Bejegyzés</div></div>`;
+
+    drawChart(weights,p);
+
+    // table
+    if(!log.length){
+      $('logTableWrap').innerHTML=`<div class="empty">Még nincs bejegyzés. Rögzítsd az első súlyodat fent! 📝</div>`;
+    }else{
+      let rows=log.slice().reverse().map(e=>`
+        <tr>
+          <td>${e.date}</td>
+          <td>${e.weight!=null?e.weight.toFixed(1).replace('.',','):'–'}</td>
+          <td>${e.steps!=null?fmt(e.steps):'–'}</td>
+          <td>${e.mood||''}</td>
+          <td>${e.note?escapeHtml(e.note):''}</td>
+          <td style="text-align:right"><button class="del" data-d="${e.date}" title="Törlés">✕</button></td>
+        </tr>`).join('');
+      $('logTableWrap').innerHTML=`<table class="log"><thead><tr><th>Dátum</th><th>Súly (kg)</th><th>Lépések</th><th>Kedv</th><th>Jegyzet</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+      $('logTableWrap').querySelectorAll('.del').forEach(b=>b.addEventListener('click',()=>deleteEntry(b.dataset.d)));
+    }
+  }
+
+  function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+  /* ---------- SVG súlygrafikon ---------- */
+  function drawChart(weights,p){
+    const svg=$('chart');const W=600,H=220,pad=34;
+    if(weights.length<1){
+      svg.innerHTML=`<text x="${W/2}" y="${H/2}" fill="#8b97ab" font-size="14" text-anchor="middle">Adj meg súlyadatokat a grafikonhoz 📈</text>`;
+      return;
+    }
+    const pts=weights.map(e=>({x:e.date,y:e.weight}));
+    const ys=pts.map(o=>o.y).concat([p.target]);
+    let min=Math.min(...ys), max=Math.max(...ys, p.start);
+    const span=(max-min)||1; min-=span*0.1; max+=span*0.1;
+    const n=pts.length;
+    const X=i=> n===1? W/2 : pad + i*(W-2*pad)/(n-1);
+    const Y=v=> H-pad - (v-min)/(max-min)*(H-2*pad);
+
+    const targetY=Y(p.target);
+    const line=pts.map((o,i)=>`${X(i).toFixed(1)},${Y(o.y).toFixed(1)}`).join(' ');
+    const area=`${pad},${H-pad} ${line} ${(n===1?W/2:W-pad)},${H-pad}`;
+    const dots=pts.map((o,i)=>`<circle cx="${X(i).toFixed(1)}" cy="${Y(o.y).toFixed(1)}" r="4" fill="#34e0a1"><title>${o.x}: ${o.y} kg</title></circle>`).join('');
+
+    svg.innerHTML=`
+      <defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#34e0a1" stop-opacity=".35"/>
+        <stop offset="1" stop-color="#34e0a1" stop-opacity="0"/>
+      </linearGradient></defs>
+      <line x1="${pad}" y1="${targetY.toFixed(1)}" x2="${W-pad}" y2="${targetY.toFixed(1)}" stroke="#4f9dff" stroke-dasharray="6 6" stroke-width="1.5"/>
+      <text x="${W-pad}" y="${(targetY-6).toFixed(1)}" fill="#4f9dff" font-size="11" text-anchor="end">Cél ${p.target} kg</text>
+      ${n>1?`<polygon points="${area}" fill="url(#ag)"/>`:''}
+      ${n>1?`<polyline points="${line}" fill="none" stroke="#34e0a1" stroke-width="2.5" stroke-linejoin="round"/>`:''}
+      ${dots}`;
+  }
+
+  /* ---------- Export / Import ---------- */
+  function download(filename,content,type){
+    const blob=new Blob([content],{type});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download=filename;a.click();
+    URL.revokeObjectURL(url);
+  }
+  function exportJson(){
+    const data={profil:current, info:PROFILES[current], exportalva:new Date().toISOString(), bejegyzesek:getLog()};
+    download(`fogyas-naplo-${current}-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(data,null,2), 'application/json');
+    toast('JSON exportálva ⬇️');
+  }
+  function exportCsv(){
+    const log=getLog().slice().sort((a,b)=>a.date.localeCompare(b.date));
+    if(!log.length){toast('Nincs mit exportálni');return;}
+    const head="datum,suly_kg,lepesek,hangulat,jegyzet";
+    const rows=log.map(e=>[e.date,e.weight??'',e.steps??'',e.mood||'','"'+(e.note||'').replace(/"/g,'""')+'"'].join(','));
+    download(`fogyas-naplo-${current}-${new Date().toISOString().slice(0,10)}.csv`, "﻿"+head+"\n"+rows.join("\n"), 'text/csv');
+    toast('CSV exportálva ⬇️');
+  }
+  function importJson(file){
+    const r=new FileReader();
+    r.onload=()=>{
+      try{
+        const d=JSON.parse(r.result);
+        const incoming=Array.isArray(d)?d:d.bejegyzesek;
+        if(!Array.isArray(incoming))throw 0;
+        const map={};
+        getLog().concat(incoming).forEach(e=>{if(e&&e.date)map[e.date]=e;});
+        setLog(Object.values(map));
+        renderLog();
+        toast('Import kész ✓');
+      }catch{toast('Hibás fájl');}
+    };
+    r.readAsText(file);
+  }
+
+  /* ---------- Napi szokások ---------- */
+  const todayKey=()=>'wl_habits_'+current+'_'+new Date().toISOString().slice(0,10);
+  function renderHabits(){
+    const saved=JSON.parse(localStorage.getItem(todayKey())||'[]');
+    document.querySelectorAll('.habit').forEach(h=>{
+      const on=saved.includes(+h.dataset.h);
+      h.classList.toggle('done',on);
+    });
+    updateScore();
+  }
+  function toggleHabit(h){
+    h.classList.toggle('done');
+    const done=[...document.querySelectorAll('.habit.done')].map(x=>+x.dataset.h);
+    localStorage.setItem(todayKey(),JSON.stringify(done));
+    updateScore();
+  }
+  function updateScore(){
+    const done=document.querySelectorAll('.habit.done').length;
+    $('habitScore').textContent= done===6 ? '🎉 6 / 6 — tökéletes nap!' : `${done} / 6 megvan ma`;
+  }
+
+  /* ---------- Toast ---------- */
+  let toastT;
+  function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);}
+
+  /* ---------- Init ---------- */
+  function setProfile(p){
+    current=p;localStorage.setItem('wl_current',p);
+    document.querySelectorAll('#switcher button').forEach(b=>b.classList.toggle('active',b.dataset.p===p));
+    render();
+  }
+
+  document.querySelectorAll('#switcher button').forEach(b=>b.addEventListener('click',()=>setProfile(b.dataset.p)));
+  document.querySelectorAll('.habit').forEach(h=>h.addEventListener('click',()=>toggleHabit(h)));
+  $('saveBtn').addEventListener('click',saveEntry);
+  $('exportJson').addEventListener('click',exportJson);
+  $('exportCsv').addEventListener('click',exportCsv);
+  $('importBtn').addEventListener('click',()=>$('importFile').click());
+  $('importFile').addEventListener('change',e=>{if(e.target.files[0])importJson(e.target.files[0]);e.target.value='';});
+  $('clearBtn').addEventListener('click',()=>{if(confirm('Biztosan törlöd ennek a profilnak az egész naplóját?')){setLog([]);renderLog();toast('Napló törölve');}});
+
+  // scroll reveal
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.1});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-  // Interaktív szokás-checklist
-  const habits=document.querySelectorAll('.habit');
-  const score=document.getElementById('habitScore');
-  function refresh(){
-    const done=document.querySelectorAll('.habit.done').length;
-    score.textContent=done+' / 6 megvan ma';
-    if(done===6){score.textContent='🎉 6 / 6 — tökéletes nap!';}
-  }
-  habits.forEach(h=>h.addEventListener('click',()=>{h.classList.toggle('done');refresh();}));
+  // alapértelmezett dátum = ma
+  $('inDate').value=new Date().toISOString().slice(0,10);
+  document.querySelectorAll('#switcher button').forEach(b=>b.classList.toggle('active',b.dataset.p===current));
+  render();
 </script>
 </body>
 </html>
