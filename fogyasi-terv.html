@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fenntartható Fogyási Terv · 105 → 75 kg</title>
+<style>
+  :root{
+    --bg:#0a0e1a;
+    --bg2:#111726;
+    --card:rgba(255,255,255,0.04);
+    --card-border:rgba(255,255,255,0.08);
+    --accent:#34e0a1;
+    --accent2:#4f9dff;
+    --accent3:#ff6b6b;
+    --gold:#ffd166;
+    --text:#e8edf5;
+    --muted:#8b97ab;
+    --shadow:0 20px 60px rgba(0,0,0,0.45);
+    --radius:20px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;
+    background:radial-gradient(circle at 20% -10%,#16203a 0%,var(--bg) 45%) fixed;
+    color:var(--text);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  /* Animated gradient blobs */
+  .blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.35;z-index:0;animation:float 18s ease-in-out infinite}
+  .blob.b1{width:420px;height:420px;background:var(--accent);top:-120px;right:-120px}
+  .blob.b2{width:380px;height:380px;background:var(--accent2);bottom:-140px;left:-120px;animation-delay:-6s}
+  .blob.b3{width:300px;height:300px;background:#7b5cff;top:40%;left:60%;animation-delay:-11s;opacity:.22}
+  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.1)}66%{transform:translate(-30px,20px) scale(.95)}}
+
+  .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:48px 22px 80px}
+
+  /* Hero */
+  header{text-align:center;padding:30px 0 18px;animation:fadeUp .9s ease both}
+  .badge{display:inline-block;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);border:1px solid var(--card-border);background:var(--card);padding:7px 16px;border-radius:999px;margin-bottom:20px}
+  h1{font-size:clamp(2rem,5vw,3.3rem);line-height:1.12;font-weight:800;letter-spacing:-.02em}
+  h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent2) 60%,#7b5cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--muted);max-width:620px;margin:16px auto 0;font-size:1.05rem}
+
+  /* Progress hero */
+  .hero-stats{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:34px}
+  .stat{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:18px 22px;min-width:128px;backdrop-filter:blur(8px);animation:fadeUp .9s ease both}
+  .stat .num{font-size:1.9rem;font-weight:800;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .lbl{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+
+  /* Big progress bar */
+  .journey{margin:46px 0;background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;backdrop-filter:blur(10px);animation:fadeUp 1s ease both}
+  .journey h3{font-size:1.05rem;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+  .journey .pct{color:var(--accent);font-weight:800}
+  .track{height:22px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden;position:relative;margin:14px 0 6px}
+  .fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));position:relative;transition:width 2s cubic-bezier(.16,1,.3,1);box-shadow:0 0 18px rgba(52,224,161,.5)}
+  .fill::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:shine 2.4s linear infinite}
+  @keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+  .track-labels{display:flex;justify-content:space-between;color:var(--muted);font-size:.85rem}
+
+  section{margin-top:54px;animation:fadeUp 1s ease both}
+  .sec-title{font-size:1.5rem;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:12px}
+  .sec-title .dot{width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .sec-note{color:var(--muted);margin-bottom:22px}
+
+  .grid{display:grid;gap:18px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:24px;backdrop-filter:blur(10px);transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .35s,box-shadow .35s;position:relative;overflow:hidden}
+  .card:hover{transform:translateY(-6px);border-color:rgba(52,224,161,.4);box-shadow:var(--shadow)}
+  .card .ico{font-size:1.7rem;margin-bottom:10px;display:block}
+  .card h4{font-size:1.1rem;margin-bottom:8px}
+  .card p,.card li{color:var(--muted);font-size:.95rem}
+  .card ul{list-style:none;margin-top:8px}
+  .card ul li{padding:5px 0 5px 24px;position:relative}
+  .card ul li::before{content:"";position:absolute;left:0;top:13px;width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
+
+  /* Daily timeline */
+  .timeline{position:relative;padding-left:30px}
+  .timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--accent),var(--accent2),transparent)}
+  .tl-item{position:relative;padding:0 0 26px 26px}
+  .tl-item::before{content:"";position:absolute;left:-26px;top:4px;width:18px;height:18px;border-radius:50%;background:var(--bg2);border:2px solid var(--accent);box-shadow:0 0 0 4px rgba(52,224,161,.12);transition:transform .3s}
+  .tl-item:hover::before{transform:scale(1.25);background:var(--accent)}
+  .tl-time{font-weight:800;color:var(--accent2);font-size:.9rem}
+  .tl-title{font-weight:700;margin:2px 0 4px}
+  .tl-desc{color:var(--muted);font-size:.93rem}
+  .kcal{display:inline-block;font-size:.78rem;color:var(--gold);border:1px solid rgba(255,209,102,.3);background:rgba(255,209,102,.08);border-radius:999px;padding:2px 10px;margin-left:6px}
+
+  /* Week tabs */
+  .days{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px}
+  .day{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:18px;transition:transform .3s,border-color .3s}
+  .day:hover{transform:translateY(-5px) scale(1.02);border-color:rgba(79,157,255,.45)}
+  .day .dname{font-weight:800;color:var(--accent2);margin-bottom:6px}
+  .day .dfocus{font-size:.9rem;color:var(--text);margin-bottom:4px}
+  .day .dmeta{font-size:.82rem;color:var(--muted)}
+  .pill{display:inline-block;font-size:.72rem;padding:3px 9px;border-radius:999px;margin-top:8px;font-weight:600}
+  .pill.move{background:rgba(79,157,255,.14);color:var(--accent2)}
+  .pill.rest{background:rgba(139,151,171,.14);color:var(--muted)}
+  .pill.strong{background:rgba(255,107,107,.14);color:var(--accent3)}
+
+  /* Plate */
+  .plate-wrap{display:flex;gap:26px;flex-wrap:wrap;align-items:center;justify-content:center}
+  .plate{width:230px;height:230px;border-radius:50%;position:relative;flex:0 0 auto;
+    background:conic-gradient(var(--accent) 0 50%,var(--accent2) 50% 75%,var(--gold) 75% 100%);
+    box-shadow:0 0 0 10px rgba(255,255,255,.04),var(--shadow);animation:spinIn 1.4s cubic-bezier(.16,1,.3,1) both}
+  .plate::after{content:"";position:absolute;inset:32%;background:var(--bg);border-radius:50%;box-shadow:inset 0 0 30px rgba(0,0,0,.6)}
+  .plate .center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:2}
+  .plate .center b{font-size:1.4rem}
+  .plate .center span{font-size:.78rem;color:var(--muted)}
+  @keyframes spinIn{from{transform:rotate(-120deg) scale(.6);opacity:0}to{transform:rotate(0) scale(1);opacity:1}}
+  .legend{display:flex;flex-direction:column;gap:12px}
+  .legend div{display:flex;align-items:center;gap:10px;font-size:.95rem}
+  .legend i{width:16px;height:16px;border-radius:5px;display:inline-block}
+
+  /* Habit checklist (interactive) */
+  .habits{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+  .habit{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--card-border);border-radius:14px;padding:14px 16px;cursor:pointer;user-select:none;transition:.25s}
+  .habit:hover{border-color:rgba(52,224,161,.4)}
+  .habit .box{width:24px;height:24px;border-radius:7px;border:2px solid var(--muted);flex:0 0 auto;display:flex;align-items:center;justify-content:center;transition:.25s;font-size:.9rem}
+  .habit.done{background:rgba(52,224,161,.1);border-color:var(--accent)}
+  .habit.done .box{background:var(--accent);border-color:var(--accent);color:#04130d}
+  .habit.done .htxt{text-decoration:line-through;color:var(--muted)}
+  .habit .htxt{font-size:.95rem}
+
+  .callout{background:linear-gradient(120deg,rgba(52,224,161,.1),rgba(79,157,255,.08));border:1px solid rgba(52,224,161,.25);border-radius:var(--radius);padding:22px 24px;margin-top:24px}
+  .callout b{color:var(--accent)}
+
+  .disclaimer{margin-top:50px;font-size:.85rem;color:var(--muted);border-top:1px solid var(--card-border);padding-top:22px;text-align:center}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+  .reveal{opacity:0;transform:translateY(28px)}
+  .reveal.in{animation:fadeUp .8s cubic-bezier(.16,1,.3,1) both}
+
+  /* count-up gets staggered delays */
+  .stat:nth-child(1){animation-delay:.05s}.stat:nth-child(2){animation-delay:.15s}
+  .stat:nth-child(3){animation-delay:.25s}.stat:nth-child(4){animation-delay:.35s}
+
+  footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:30px}
+</style>
+</head>
+<body>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+
+  <div class="wrap">
+    <header>
+      <span class="badge">★ Személyre szabott terv</span>
+      <h1>Fenntartható út a <span class="grad">75 kg-ig</span></h1>
+      <p class="sub">176 cm · 30 éves férfi · indulás 105 kg-ról. Nem diéta — egy nyugodt, tartható életmód, ami havonta 2,5–3 kg-ot ad le, anélkül hogy kiéheznél vagy feladnád.</p>
+
+      <div class="hero-stats">
+        <div class="stat"><div class="num" data-count="30">0</div><div class="lbl">leadandó kg</div></div>
+        <div class="stat"><div class="num" data-count="9" data-suffix="–10">0</div><div class="lbl">hónap</div></div>
+        <div class="stat"><div class="num" data-count="2200" data-suffix=" kcal">0</div><div class="lbl">napi cél</div></div>
+        <div class="stat"><div class="num" data-count="0" data-decimal="7" data-prefix="~0,">0</div><div class="lbl">kg / hét</div></div>
+      </div>
+    </header>
+
+    <div class="journey">
+      <h3><span>Súlycél haladás</span><span class="pct">105 → <span style="color:var(--accent2)">75 kg</span></span></h3>
+      <div class="track"><div class="fill" id="fill"></div></div>
+      <div class="track-labels"><span>Start · 105 kg</span><span>Cél · 75 kg (BMI 24,2)</span></div>
+      <p style="color:var(--muted);font-size:.9rem;margin-top:12px">A mostani BMI <b style="color:var(--accent3)">33,9</b> (I. fokú elhízás) → a cél a <b style="color:var(--accent)">24,2</b>-es, egészséges normál tartomány.</p>
+    </div>
+
+    <!-- ALAPELVEK -->
+    <section class="reveal">
+      <div class="sec-title"><span class="dot"></span>A 4 alapelv</div>
+      <p class="sec-note">Ezeken áll vagy bukik minden. Nem a tökéletesség, hanem a következetesség számít.</p>
+      <div class="grid g2">
+        <div class="card"><span class="ico">🔥</span><h4>Mérsékelt kalóriadeficit</h4><p>A fenntartásod kb. 2800–3100 kcal. A cél napi <b style="color:var(--text)">~2200 kcal</b> — kb. 600–700 kcal mínusz. Elég a fogyáshoz, de nem éhezel.</p></div>
+        <div class="card"><span class="ico">🥩</span><h4>Sok fehérje</h4><p>Napi <b style="color:var(--text)">160–180 g</b> fehérje (kb. 1,6 g/ttkg). Megtart jóllakottnak és véd az izomvesztéstől fogyás közben.</p></div>
+        <div class="card"><span class="ico">🚶</span><h4>Napi mozgás</h4><p>Cél: <b style="color:var(--text)">8 000–10 000 lépés</b> minden nap + heti 3 erősítő edzés. A lépésszám a legalábecsült fogyás-motor.</p></div>
+        <div class="card"><span class="ico">😴</span><h4>Alvás &amp; folyadék</h4><p><b style="color:var(--text)">7–8 óra alvás</b> és <b style="color:var(--text)">2,5–3 l víz</b> naponta. Kevés alvás = több éhségérzet és lassabb fogyás.</p></div>
+      </div>
+    </section>
+
+    <!-- NAPI TERV -->
+    <section class="reveal">
+      <div class="sec-title"><span class="dot"></span>Egy átlagos nap</div>
+      <p class="sec-note">Minta-napirend kb. 2200 kcal-ra és 170 g fehérjére bontva. Az időpontok rugalmasak — igazítsd a saját ritmusodhoz.</p>
+      <div class="card">
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-time">07:00 · Ébredés</div><div class="tl-title">Indító rutin</div><div class="tl-desc">2 pohár víz, esetleg fekete kávé. 10 perc nyújtás vagy séta a tudatos kezdéshez.</div></div>
+          <div class="tl-item"><div class="tl-time">07:30 · Reggeli<span class="kcal">~500 kcal</span></div><div class="tl-title">Fehérjés indítás</div><div class="tl-desc">Pl. 4 tojásos rántotta zöldséggel + 1 szelet teljes kiőrlésű kenyér, vagy zabkása túróval és bogyós gyümölccsel.</div></div>
+          <div class="tl-item"><div class="tl-time">10:30 · Tízórai<span class="kcal">~200 kcal</span></div><div class="tl-title">Könnyű snack</div><div class="tl-desc">Görög joghurt vagy egy marék mandula + alma. Ne hagyd, hogy ebédig farkaséhes legyél.</div></div>
+          <div class="tl-item"><div class="tl-time">13:00 · Ebéd<span class="kcal">~650 kcal</span></div><div class="tl-title">A „tányérmódszer”</div><div class="tl-desc">Fél tányér zöldség, negyed sovány fehérje (csirke/hal/marha), negyed komplex szénhidrát (rizs/burgonya/quinoa).</div></div>
+          <div class="tl-item"><div class="tl-time">16:30 · Edzés / séta</div><div class="tl-title">Mozgás</div><div class="tl-desc">Erősítő edzés (hét 3 napján) vagy 30–45 perc gyors séta. Edzés után fehérjeturmix is jöhet.</div></div>
+          <div class="tl-item"><div class="tl-time">19:00 · Vacsora<span class="kcal">~600 kcal</span></div><div class="tl-title">Könnyű, fehérjedús</div><div class="tl-desc">Sült hal vagy csirke nagy salátával, vagy zöldséges túró/cottage cheese tál. Kerüld a nehéz, késő esti étkezést.</div></div>
+          <div class="tl-item"><div class="tl-time">22:30 · Lefekvés</div><div class="tl-title">Pihenés</div><div class="tl-desc">Képernyő le 30 perccel előtte, sötét, hűvös szoba. A 7–8 óra alvás a terv láthatatlan alappillére.</div></div>
+        </div>
+      </div>
+
+      <div class="plate-wrap" style="margin-top:30px">
+        <div class="plate"><div class="center"><b>A tányér</b><span>így nézzen ki</span></div></div>
+        <div class="legend">
+          <div><i style="background:var(--accent)"></i> <b>50%&nbsp;</b> Zöldség &amp; saláta — rostok, telítettség</div>
+          <div><i style="background:var(--accent2)"></i> <b>25%&nbsp;</b> Sovány fehérje — hús, hal, tojás, túró</div>
+          <div><i style="background:var(--gold)"></i> <b>25%&nbsp;</b> Komplex szénhidrát — rizs, burgonya, gabona</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HETI TERV -->
+    <section class="reveal">
+      <div class="sec-title"><span class="dot"></span>A heti ritmus</div>
+      <p class="sec-note">Heti 3 erősítő edzés, közöttük aktív pihenő és séta. Egy „lazább” nap is belefér — ettől lesz tartható.</p>
+      <div class="days">
+        <div class="day"><div class="dname">Hétfő</div><div class="dfocus">💪 Erősítés — Felsőtest</div><div class="dmeta">Mell, hát, váll, kar</div><span class="pill strong">Edzés</span></div>
+        <div class="day"><div class="dname">Kedd</div><div class="dfocus">🚶 Séta + core</div><div class="dmeta">8–10 e lépés, 10' has</div><span class="pill move">Aktív</span></div>
+        <div class="day"><div class="dname">Szerda</div><div class="dfocus">💪 Erősítés — Alsótest</div><div class="dmeta">Comb, far, vádli</div><span class="pill strong">Edzés</span></div>
+        <div class="day"><div class="dname">Csütörtök</div><div class="dfocus">🧘 Pihenő / nyújtás</div><div class="dmeta">Könnyű séta, mobilitás</div><span class="pill rest">Pihenő</span></div>
+        <div class="day"><div class="dname">Péntek</div><div class="dfocus">💪 Erősítés — Teljes test</div><div class="dmeta">Összetett gyakorlatok</div><span class="pill strong">Edzés</span></div>
+        <div class="day"><div class="dname">Szombat</div><div class="dfocus">🥾 Hosszú aktivitás</div><div class="dmeta">Túra, bringa, úszás 60'</div><span class="pill move">Aktív</span></div>
+        <div class="day"><div class="dname">Vasárnap</div><div class="dfocus">🍽️ Rugalmas nap</div><div class="dmeta">Pihenés + heti meal-prep</div><span class="pill rest">Pihenő</span></div>
+      </div>
+
+      <div class="callout">
+        <b>Heti mérleg-szabály:</b> Mérd magad mindig ugyanúgy — heti 1×, reggel, vécé után, éhgyomorra. A napi ingadozás normális (víz, só); a <b>4 hetes átlag-trend</b> a fontos, nem az egyes számok. Cél: havi 2,5–3 kg lefelé.
+      </div>
+    </section>
+
+    <!-- NAPI SZOKÁSOK CHECKLIST -->
+    <section class="reveal">
+      <div class="sec-title"><span class="dot"></span>Napi pipálható szokások</div>
+      <p class="sec-note">Kattints rájuk! Ha napi 6-ból 5 megvan, jó úton vagy. Frissítsd minden reggel.</p>
+      <div class="habits" id="habits">
+        <div class="habit"><span class="box">✓</span><span class="htxt">💧 2,5–3 liter víz</span></div>
+        <div class="habit"><span class="box">✓</span><span class="htxt">🥩 ~170 g fehérje</span></div>
+        <div class="habit"><span class="box">✓</span><span class="htxt">🚶 8 000+ lépés</span></div>
+        <div class="habit"><span class="box">✓</span><span class="htxt">🥗 2 adag zöldség</span></div>
+        <div class="habit"><span class="box">✓</span><span class="htxt">😴 7–8 óra alvás</span></div>
+        <div class="habit"><span class="box">✓</span><span class="htxt">🚫 Nincs éjszakai nasi</span></div>
+      </div>
+      <p id="habitScore" style="text-align:center;margin-top:18px;font-weight:700;color:var(--accent)">0 / 6 megvan ma</p>
+    </section>
+
+    <!-- TIPPEK -->
+    <section class="reveal">
+      <div class="sec-title"><span class="dot"></span>Tippek, hogy tartható maradjon</div>
+      <div class="grid g3">
+        <div class="card"><span class="ico">🍽️</span><h4>Meal-prep</h4><p>Vasárnap főzz előre 2-3 napra. Ha kész az egészséges étel, nem a gyorskaja lesz a kézenfekvő.</p></div>
+        <div class="card"><span class="ico">📵</span><h4>Tudatos evés</h4><p>Lassan egyél, képernyő nélkül. Az agynak 20 perc kell, hogy érzékelje a teltséget.</p></div>
+        <div class="card"><span class="ico">🥤</span><h4>Folyékony kalóriák</h4><p>Üdítő, gyümölcslé, alkohol — itt bújik a rejtett kalória. Víz, tea, kávé cukor nélkül a barátaid.</p></div>
+        <div class="card"><span class="ico">🎯</span><h4>80/20 szabály</h4><p>Az idő 80%-ában tartsd a tervet, 20% legyen rugalmas. Egy kiruccanás nem rontja el a hetet.</p></div>
+        <div class="card"><span class="ico">📉</span><h4>Plató kezelése</h4><p>3-4 hét stagnálás normális. Ne csökkentsd drasztikusan a kalóriát — inkább nézd a lépésszámot és az alvást.</p></div>
+        <div class="card"><span class="ico">🏆</span><h4>Nem-mérleg győzelmek</h4><p>Bővebb energia, jobb alvás, lazább nadrág. Ezek jeleznek akkor is, ha a szám épp áll.</p></div>
+      </div>
+    </section>
+
+    <div class="callout" style="margin-top:46px">
+      <b>A lényeg 1 mondatban:</b> Egyél napi ~2200 kcal-t bőséges fehérjével, mozogj minden nap és aludj eleget — és a 75 kg nem cél lesz, hanem egy állomás, amit kényelmesen tartani is tudsz.
+    </div>
+
+    <p class="disclaimer">
+      ⚕️ Ez egy általános, tájékoztató életmódterv, nem helyettesíti az orvosi tanácsadást. 30 kg leadása előtt — különösen meglévő betegség, gyógyszerszedés esetén — érdemes háziorvossal vagy dietetikussal egyeztetni. Hallgass a tested jelzéseire.
+    </p>
+    <footer>Készült személyre szabottan · 105 → 75 kg · fenntartható tempóban 💚</footer>
+  </div>
+
+<script>
+  // Count-up animáció
+  function animateCount(el){
+    const target=parseFloat(el.dataset.count);
+    const suffix=el.dataset.suffix||"";
+    const prefix=el.dataset.prefix||"";
+    const decimal=el.dataset.decimal;
+    let cur=0;const dur=1400;const t0=performance.now();
+    function step(now){
+      const p=Math.min((now-t0)/dur,1);
+      const eased=1-Math.pow(1-p,3);
+      if(decimal!==undefined){
+        el.textContent=prefix+Math.round(eased*parseInt(decimal))+suffix;
+      }else{
+        cur=Math.round(eased*target);
+        el.textContent=prefix+cur.toLocaleString('hu-HU')+suffix;
+      }
+      if(p<1)requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  window.addEventListener('load',()=>{
+    document.querySelectorAll('[data-count]').forEach(animateCount);
+    // progress bar: 0 kg leadva eddig -> mutassuk a "teljes utat" vizuálisan kis kezdettel
+    setTimeout(()=>{document.getElementById('fill').style.width='4%';},400);
+  });
+
+  // Scroll reveal
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Interaktív szokás-checklist
+  const habits=document.querySelectorAll('.habit');
+  const score=document.getElementById('habitScore');
+  function refresh(){
+    const done=document.querySelectorAll('.habit.done').length;
+    score.textContent=done+' / 6 megvan ma';
+    if(done===6){score.textContent='🎉 6 / 6 — tökéletes nap!';}
+  }
+  habits.forEach(h=>h.addEventListener('click',()=>{h.classList.toggle('done');refresh();}));
+</script>
+</body>
+</html>
